@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from pprint import pprint
 import requests
 import json
@@ -15,6 +17,13 @@ record_date=r['data'][0]['record_date']
 debt_held_public_amt=float(r['data'][0]['debt_held_public_amt'])
 intragov_hold_amt=float(r['data'][0]['intragov_hold_amt'])
 tot_pub_debt_out_amt=float(r['data'][0]['tot_pub_debt_out_amt'])
+# Population data
+response = requests.get("https://api.census.gov/data/2021/pep/natmonthly?get=POP,NAME&for=us:*")
+r = json.loads(response.content)
+# example response:
+# [['POP', 'NAME', 'us'], ['331893745', 'United States', '1']]
+us_population = int(r[1][0])
+debt_per_person=tot_pub_debt_out_amt/us_population
 #Print the values
 print("Retrieved the following data from the API: ")
 print('Record Date: ', record_date)
@@ -25,4 +34,6 @@ print('Intragovernmental Holdings $', end='')
 print(f"{(intragov_hold_amt):,.2f}")
 print('Total Public Debt Outstanding $', end='')
 print(f"{(tot_pub_debt_out_amt):,.2f}")
+print('Total Public Debt Per Person $', end='')
+print(f"{(debt_per_person):,.2f}")
 print('Thank you for using the current US Federal Debt Tracking App')
