@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# last_modified_at: 2019-01-30
 
 import logging
 import argparse
@@ -8,7 +8,7 @@ def main():
     print("LogTest.py")
     args = arg_parser()
     log_setup(args)
-    
+
     LOGGER.debug("Debug message")
     LOGGER.info("Info message")
     LOGGER.warning("Warning message")
