@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-print("LogTest.py")
-
 import logging
 import argparse
 
 def main():
+    print("LogTest.py")
     args = arg_parser()
     log_setup(args)
     LOGGER.debug("Debug message")
