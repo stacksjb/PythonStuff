@@ -34,26 +34,22 @@ def log_setup(args):
     # https://docs.python.org/3/library/time.html#time.strftime
     
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    if args.log: #Only log to file if log is set
+    # create console handler for iostream.
+    ch = logging.StreamHandler()
+    ch.setLevel(log_level)
+    ch.setFormatter(formatter)
+    # add the handlers to the logger
+    LOGGER.addHandler(ch)
+
+    if args.log: #Setup file handler if arg is set
         # create file handler that logs at configured log_level to file 'run.log'
         fh = logging.FileHandler('run.log')
         fh.setLevel(log_level)
         fh.setFormatter(formatter)
         LOGGER.addHandler(fh)
-
-    # create console handler for iostream.
-    ch = logging.StreamHandler()
-    ch.setLevel(log_level)
-    ch.setFormatter(formatter)
-    
-    # add the handlers to the logger
-    LOGGER.addHandler(ch)
   
-    if args.auto:
+    if args.auto: #Log if auto is set
         LOGGER.info("Auto is set")
-    
-
-    
 
 
 if __name__ == "__main__":
