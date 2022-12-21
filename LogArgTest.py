@@ -28,14 +28,11 @@ def log_setup(args):
     LOGGER = logging.getLogger(__name__)
     log_level = [logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG][args.verbose]
     LOGGER.setLevel(log_level)
-    # if args.verbose == 3:
-    #     LOG_LEVEL = logging.DEBUG
-    # elif args.verbose == 2:
-    #     LOG_LEVEL = logging.INFO
-    # elif args.verbose == 1:
-    #     LOG_LEVEL = logging.WARNING
-    # elif args.verbose == 0:
-    #     LOG_LEVEL = logging.ERROR
+
+    # create formatter and add it to the handlers
+    # Uses time.strftime(format[, t]), see
+    # https://docs.python.org/3/library/time.html#time.strftime
+    
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     if args.log: #Only log to file if log is set
         # create file handler that logs at configured log_level to file 'run.log'
@@ -49,14 +46,12 @@ def log_setup(args):
     ch.setLevel(log_level)
     ch.setFormatter(formatter)
     
-    # create formatter and add it to the handlers
-    # Uses time.strftime(format[, t]), see
-    # https://docs.python.org/3/library/time.html#time.strftime
-    
-    if args.auto:
-        LOGGER.info("Auto is set")
     # add the handlers to the logger
     LOGGER.addHandler(ch)
+  
+    if args.auto:
+        LOGGER.info("Auto is set")
+    
 
     
 
