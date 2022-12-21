@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 print("LogTest.py")
 
 import logging
 import argparse
 
-LOG_LEVEL = logging.INFO #Default logging level; should be INFO
+LOG_LEVEL = logging.ERROR #Default logging level; should be ERROR
 LOGGER = logging.getLogger(__name__)
 
 
@@ -29,12 +29,11 @@ def arg_parser():
 
 def log_setup():
     global LOG_LEVEL
-    LOGGER.setLevel(LOG_LEVEL)
     if arg_parser().debug:
         LOG_LEVEL = logging.DEBUG
     elif arg_parser().verbose:
         LOG_LEVEL = logging.INFO
-    
+    LOGGER.setLevel(LOG_LEVEL)
     
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     if arg_parser().log: #Only log to file if log is set
@@ -43,11 +42,12 @@ def log_setup():
         fh.setLevel(LOG_LEVEL)
         fh.setFormatter(formatter)
         LOGGER.addHandler(fh)
-
-        # create console handler for iostream.  It is common to set this to WARNING.
+    
+    # create console handler for iostream.
     ch = logging.StreamHandler()
     ch.setLevel(LOG_LEVEL)
     ch.setFormatter(formatter)
+    
 
     # create formatter and add it to the handlers
     # Uses time.strftime(format[, t]), see
