@@ -4,6 +4,7 @@ print("LogTest.py")
 import logging
 import argparse
 
+#Enable logging and set default level
 LOG_LEVEL = logging.ERROR #Default logging level; should be ERROR
 LOGGER = logging.getLogger(__name__)
 
@@ -27,6 +28,7 @@ def arg_parser():
     args=parser.parse_args()
     return args
 
+#Set up logging functions and set level
 def log_setup():
     global LOG_LEVEL
     if arg_parser().debug:
@@ -42,22 +44,19 @@ def log_setup():
         fh.setLevel(LOG_LEVEL)
         fh.setFormatter(formatter)
         LOGGER.addHandler(fh)
-    
+
     # create console handler for iostream.
     ch = logging.StreamHandler()
     ch.setLevel(LOG_LEVEL)
     ch.setFormatter(formatter)
     
-
     # create formatter and add it to the handlers
     # Uses time.strftime(format[, t]), see
     # https://docs.python.org/3/library/time.html#time.strftime
     
     if arg_parser().auto:
         LOGGER.info("Auto is set")
-
     # add the handlers to the logger
-    
     LOGGER.addHandler(ch)
 
     
