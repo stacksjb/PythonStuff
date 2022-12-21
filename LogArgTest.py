@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+
 import logging
 import argparse
 
@@ -6,6 +8,7 @@ def main():
     print("LogTest.py")
     args = arg_parser()
     log_setup(args)
+    
     LOGGER.debug("Debug message")
     LOGGER.info("Info message")
     LOGGER.warning("Warning message")
@@ -17,7 +20,7 @@ def arg_parser():
     parser = argparse.ArgumentParser(description="A test of logging and argparse")
     parser.add_argument("-a", "--auto", help="Automatically sync previously set courses", action="store_true")
     parser.add_argument("-l", "--log", help="Log output to file", action="store_true")
-    parser.add_argument('-v', '--verbose', action="count", help="Verbosity level: v=error, vv=warning, vvv=info, vvvv=debug, vvvvv=trace (default: error)", default=0)
+    parser.add_argument('-v', '--verbose', action="count", help="Verbosity level: v=error, vv=warning, vvv=info, vvvv=debug (default: critical)", default=0)
     args=parser.parse_args()
     return args
 
@@ -49,6 +52,7 @@ def log_setup(args):
   
     if args.auto: #Log if auto is set
         LOGGER.info("Auto is set")
+
 
 
 if __name__ == "__main__":
