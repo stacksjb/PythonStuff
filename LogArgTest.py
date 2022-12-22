@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# last_modified_at: 2022-01-01 00:00:00
 
 import logging
 import argparse
