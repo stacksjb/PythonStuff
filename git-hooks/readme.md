@@ -1,4 +1,4 @@
-Hooks used for versioning and commit checks
+Hooks used for versioning and commit checks, used for commit-version.txt on this and other repositories
 
 pre-commit courtesy of https://pre-commit.com/
 
