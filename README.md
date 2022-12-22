@@ -1,5 +1,5 @@
-# PythonStuff
-Various random Python Scripts and projects
+# PythonStuff & other misc things
+Various random Python Scripts, projects, side code, and repository for other stuff
 
 Mostly used for storing small blobs of code for later re-use
 
