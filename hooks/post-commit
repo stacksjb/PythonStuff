@@ -1,26 +1,20 @@
 #!/bin/sh
 
-git log -1 --format=%s HEAD|grep -q "^BOT-VERSIONING: " && exit
-
-date -u > commit-version.txt
-
-
-git diff-index --quiet --cached HEAD || git commit -m "BOT-VERSIONING: lastmod"
+git log -1 --format=%s HEAD|grep -q "^AUTOBOT-VERSIONING: " && exit
 
 DATE=$(date -u "+%Y-%m-%dT%H:%M:%S")
 
-sed -i -e "s/^#COMMIT DATETIME - LAST MODIFIED:.*$/#COMMIT DATETIME - LAST MODIFIED: $DATE/" commit-version.txt
+cp commit-version.txt commit-version-tmp.txt
+
+awk 'BEGIN{ FS=OFS=":" }
+/#COMMIT REVISION:/{ match($NF, /^[0-9]+/); $NF=($NF+1) substr($NF, RLENGTH+1) }1' commit-version.txt > commit-version-tmp.txt
+
+sed -i'' -E "s/^#COMMIT DATETIME - LAST MODIFIED:.*$/#COMMIT DATETIME - LAST MODIFIED: $DATE/" commit-version-tmp.txt
+
+rm commit-version.txt
+cp commit-version-tmp.txt commit-version.txt
+rm commit-version-tmp.txt*
 
 git add commit-version.txt
 
-
-FILES=$(git diff --name-only HEAD^ HEAD|grep -x 'foo/.*\.html')
-grep -xl "$START.*$END" $FILES < /dev/null |\
-while read file;
-do
-    DATE=$(date '+%Y-%m-%d')
-    sed -i "s,^\($START\).*\($END\),\1$DATE\2," $file &&
-    git add $file
-done
-
-git diff-index --quiet --cached HEAD || git commit -m "BOT-VERSIONING: lastmod"
+git diff-index --quiet --cached HEAD || git commit -m "AUTOBOT-VERSIONING: Update Commit Version"
