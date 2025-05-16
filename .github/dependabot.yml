@@ -1,29 +1,6 @@
 version: 2
 updates:
-  # Check for updates to Python dependencies
   - package-ecosystem: "pip"
-    directory: "/" # Location of your dependency files (e.g., requirements.txt)
-    schedule:
-      interval: "daily" # Check for updates daily
-    ignore:
-      # Example: Ignore updates for a specific package
-      - dependency-name: "example-package"
-        versions: ["1.x"]
-
-  # If you use pipenv, you can add another entry for Pipfile
-  - package-ecosystem: "pip"
-    directory: "/" # Location of your Pipfile
-    schedule:
-      interval: "daily"
-
-  # If you use poetry, you can add another entry for pyproject.toml
-  - package-ecosystem: "pip"
-    directory: "/" # Location of your pyproject.toml
-    schedule:
-      interval: "daily"
-
-  # Optional: Check for GitHub Actions updates if you use workflows
-  - package-ecosystem: "github-actions"
-    directory: "/.github/workflows" # Location of your GitHub Actions workflows
+    directory: "/" # Location of requirements.txt
     schedule:
       interval: "daily"
